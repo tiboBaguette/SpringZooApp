@@ -12,19 +12,18 @@
         <th:block th:replace="${varlinks}" />
     </head>
     <body>
-        <nav th:fragment="navbar">
-            <ul class="nav-list">
-                <li>
-                    <a href="#" th:href="@{/}">Home</a>
+        <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/}">Home</a>
                 </li>
-                <li>
-                    <a href="#" th:href="@{/animal/getAllAnimals}">Show animals</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/animal/getAllAnimals}">Show Animals</a>
                 </li>
-                <li>
-                    <a href="#" th:href="@{/animal/add}">Add animal</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/animal/add}">Add Animal</a>
                 </li>
             </ul>
-            <hr>
         </nav>
     </body>
 </html>

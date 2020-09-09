@@ -37,6 +37,8 @@ public class AnimalDAOImpl implements AnimalDAO {
                 Animal animal = new Animal();
                 animal.setId(resultSet.getInt("id"));
                 animal.setName(resultSet.getString("name"));
+                animal.setAmount(resultSet.getInt("amount"));
+                animal.setDangerous(resultSet.getString("dangerous"));
                 animals.add(animal);
             }
             return animals;
@@ -47,8 +49,10 @@ public class AnimalDAOImpl implements AnimalDAO {
     }
 
     public void addAnimal(Animal animal) {
-        try (PreparedStatement preparedStatement = createConnection().prepareStatement("insert into animals(id, name) values ((SELECT LAST_INSERT_ID()),?)")) {
+        try (PreparedStatement preparedStatement = createConnection().prepareStatement("insert into animals(id, name, amount, dangerous) values ((SELECT LAST_INSERT_ID()),?,?,?)")) {
             preparedStatement.setString(1, animal.getName());
+            preparedStatement.setInt(2, animal.getAmount());
+            preparedStatement.setString(3, animal.getDangerous());
             preparedStatement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -75,6 +79,8 @@ public class AnimalDAOImpl implements AnimalDAO {
             Animal animal = new Animal();
             animal.setId(resultSet.getInt("id"));
             animal.setName(resultSet.getString("name"));
+            animal.setAmount(resultSet.getInt("amount"));
+            animal.setDangerous(resultSet.getString("dangerous"));
             return animal;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -84,12 +90,22 @@ public class AnimalDAOImpl implements AnimalDAO {
 
     @Override
     public void update(Animal animal) {
-        try (PreparedStatement preparedStatement = createConnection().prepareStatement("update animals set name= ? where id = ? ")) {
+        try (PreparedStatement preparedStatement = createConnection().prepareStatement("update animals set name= ?, amount= ?, dangerous= ? where id = ? ")) {
             preparedStatement.setString(1, animal.getName());
-            preparedStatement.setInt(2, animal.getId());
+            preparedStatement.setInt(2, animal.getAmount());
+            preparedStatement.setString(3, animal.getDangerous());
+            preparedStatement.setInt(4, animal.getId());
             preparedStatement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 }
+
+//          CREATE TABLE `animalzoodb`.`animals` (
+//              id INT NOT NULL AUTO_INCREMENT,
+//              name VARCHAR(50),
+//              amount INT,
+//              dangerous VARCHAR(50),
+//              PRIMARY KEY (id)
+//          );

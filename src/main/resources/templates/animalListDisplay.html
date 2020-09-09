@@ -6,18 +6,24 @@
         <div th:insert="fragments/header :: navbar"></div>
         <div class="container">
             <h2>All Animals in Zoo</h2>
-            <table border="1">
-                <tr>
-                    <th>Animal Id</th>
-                    <th>Name</th>
-                    <th>Actions</th>
-                </tr>
+            <table class="table table-dark table-striped table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Animal</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Dangerous</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
                 <tr th:each="animal : ${animals}">
                     <td th:text="${{animal.id}}">id</td>
                     <td th:text="${{animal.name}}">name</td>
+                    <td th:text="${{animal.amount}}">amount</td>
+                    <td th:text="${{animal.dangerous}}">dangerous</td>
                     <td>
                         <a class="btn btn-primary" type="button" th:href="@{/animal/{id}/edit(id=${animal.id})}">edit</a>
-                        <a class="btn btn-warning" type="button" th:href="@{/animal/{id}/delete(id=${animal.id})}">delete</a>
+                        <a class="btn btn-danger" type="button" th:href="@{/animal/{id}/delete(id=${animal.id})}">delete</a>
                     </td>
                 </tr>
             </table>
