@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/header :: common_header(~{::title},~{})">
+        <meta charset="UTF-8">
+        <title>Add Animal</title>
+    </head>
+    <body>
+        <div th:insert="fragments/header :: navbar"></div>
+        <form action="/animal/add" method="post">
+            <input type="text" id="name" name="name" >
+            <input type="submit" value="save">
+        </form>
+    </body>
+</html>
